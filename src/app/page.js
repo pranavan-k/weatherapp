@@ -5,6 +5,7 @@ import ForcastItem from "./components/forcast_item";
 
 async function getCurrentWeatherData(query) {
   /*
+    hey
     The current weather data fetch
     query: string value
   */
