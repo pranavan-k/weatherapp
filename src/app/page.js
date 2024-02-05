@@ -5,12 +5,11 @@ import ForcastItem from "./components/forcast_item";
 
 async function getCurrentWeatherData(query) {
   /*
-    hey
     The current weather data fetch
     query: string value
   */
 
-  const res = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${"67764e4d5b5f4b5cba1191406222604"}&q=${query}&days=3&aqi=yes`)
+  const res = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API}&q=${query}&days=3&aqi=yes`)
   return res.json()
 }
 
