@@ -3,12 +3,11 @@ import Toolbar from "./components/toolbar";
 const moment = require("moment");
 import ForcastItem from "./components/forcast_item";
 
-async function getCurrentWeatherData(query) {
+const currentWeatherData = async (query) => {
   /*
     The current weather data fetch
     query: string value
   */
-
   const res = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API}&q=${query}&days=3&aqi=yes`)
   return res.json()
 }
@@ -19,8 +18,8 @@ async function handleSearch(term) {
 }
 
 export default async function Home({searchParams}) {
-  const data = await getCurrentWeatherData(searchParams["search"]);
-  console.log(data.forecast);
+  const search = searchParams["search"] != undefined ? searchParams["search"] : "Toronto";
+  const data = await currentWeatherData(search);
   const current_time = moment().format("HH:mm");
 
   return (
@@ -75,7 +74,6 @@ export default async function Home({searchParams}) {
         <h1 className=" pt-12 pl-12 text-4xl">3 day forecast</h1>
         <div className="p-12 flex lg:flex-row flex-col justify-around gap-10 mt-7 h-full">
           {data.forecast.forecastday.map((forcasted) => {
-            console.log(forcasted.hour)
             return (
               <ForcastItem key={forcasted.date} date={forcasted.date} icon={forcasted.day.condition.icon} temp_high={forcasted.day.maxtemp_c} temp_low={forcasted.day.mintemp_c}
               temp_statement={forcasted.day.condition.text} rain_change={forcasted.day.daily_chance_of_rain}/>
