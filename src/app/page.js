@@ -18,6 +18,7 @@ async function handleSearch(term) {
 }
 
 export default async function Home({searchParams}) {
+  // sets the search param to deault when page is loaded to prevent api call with undefined value
   const search = searchParams["search"] != undefined ? searchParams["search"] : "Toronto";
   const data = await currentWeatherData(search);
   const current_time = moment().format("HH:mm");
