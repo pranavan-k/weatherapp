@@ -1,24 +1,25 @@
 import React from 'react'
 import Image from 'next/image'
+const moment = require("moment");
 
-function ForcastItem({date, temp_high, temp_low, icon, temp_statement, rain_change}) {
-  return (
-    <div className='flex flex-col w-full bg-slate-900 p-5 rounded-md'>
-        <h1 className='font-semibold p-2'>{date}</h1>
-        <div className='flex'>
-            <div className='flex gap-3'>
-                <Image alt="weather icon" src={"https:" + icon} width={80} height={20}></Image>
-                <div className='flex flex-col justify-between'>
-                    <h1>{temp_high}°</h1>
-                    <h1>{temp_low}°</h1>
+const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function ForcastItem({date, temp_high, temp_low, icon}) {
+    const day = new Date(date);
+
+    return (
+        <div className='flex lg:flex-col flex-row w-full lg:p-5 p-0 rounded-md lg:border-x-2 lg:border-y-0 border-y-2 border-slate-700 lg:items-start items-center'>
+            <h1 className='font-semibold lg:text-base text-sm'>{dayNames[day.getDay()]}</h1>
+            <div className='flex w-full'>
+                <div className='flex lg:gap-3 w-full items-center lg:justify-start'>
+                    <Image alt="weather icon" src={`/icons/${icon}.png`} width={42} height={20}></Image>
+                    <div className='flex lg:flex-col flex-row lg:justify-between justify-around w-full'>
+                        <h1>{temp_high}°</h1>
+                        <h1>{temp_low}°</h1>
+                    </div>
                 </div>
             </div>
-            <div className='flex flex-col items-end w-full text-slate-400'>
-                <h1>{temp_statement}</h1>
-                <h1>rain: {rain_change}%</h1>
-            </div>
         </div>
-    </div>
   )
 }
 
